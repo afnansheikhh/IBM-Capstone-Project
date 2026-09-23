@@ -1,0 +1,152 @@
+# IBM CAPSTONE PROJECT REPORT
+## TOPIC: SUPERMARKET SALES EXPLORATORY DATA ANALYSIS & BUSINESS INTELLIGENCE
+
+**Student / Analyst:** Afnan Sheikh  
+**Program:** IBM SkillsBuild / BharatCares Business Solutions  
+**Dataset:** 500 Verified Supermarket Sales Transactions  
+**Tools Used:** Python 3, Pandas, Streamlit, Plotly, Altair, HTML5/CSS3 Neo-Brutalist Design  
+
+---
+
+## 1. EXECUTIVE SUMMARY
+
+This project provides an end-to-end exploratory data analysis (EDA), financial modeling, and business intelligence study of a multi-branch supermarket retail chain operating across four major Indian cities: **Mumbai (Branch C)**, **Delhi (Branch B)**, **Bengaluru (Branch D)**, and **Jaipur (Branch A)**.
+
+Using a dataset of 500 distinct retail transactions recorded between January 2026 and July 2026, the analysis audits data hygiene, validates revenue formulas, segments customer demographics and payment behaviors, and translates empirical patterns into high-impact executive strategies.
+
+### High-Level KPI Summary:
+- **Total Revenue**: **₹244,411.08**
+- **Total Transactions Recorded**: **500 Invoices**
+- **Total Product Units Sold**: **2,768 Units**
+- **Average Order Value (Ticket Size)**: **₹488.82**
+- **Chain-Wide Average Satisfaction Rating**: **3.99 / 5.00★**
+- **Dominant Product Category**: **Beverages** (₹56,108.24 • 23.0% Market Share)
+- **Top Performing Branch**: **Mumbai (Branch C)** (₹72,469.45 • 29.6% Market Share)
+
+---
+
+## 2. DATASET OVERVIEW & QUALITY ASSESSMENT
+
+### 2.1 Dataset Schema
+The dataset consists of 13 primary attributes:
+1. `Invoice ID`: Unique alphanumeric transaction identifier (e.g., `INV0001` to `INV0500`).
+2. `Date`: Transaction timestamp spanning `2026-01-01` through `2026-07-01`.
+3. `Branch`: Operational branch identifier (`A`, `B`, `C`, `D`).
+4. `City`: Municipal location (`Jaipur`, `Delhi`, `Mumbai`, `Bengaluru`).
+5. `Customer Type`: Membership category (`Member`, `Normal`).
+6. `Gender`: Shopper gender (`Male`, `Female`).
+7. `Product`: SKU description (15 unique items including Milk, Rice, Shampoo, Apples, Bread, Coffee, Tea).
+8. `Category`: High-level merchandise group (8 categories: Bakery, Beverages, Dairy, Fruits, Grocery, Personal Care, Snacks, Vegetables).
+9. `Quantity`: Number of units purchased per transaction (Integer: 1 to 10).
+10. `Unit Price`: Unit cost per product in INR (Float: ₹28.00 to ₹235.00).
+11. `Payment`: Settlement method (`UPI`, `Net Banking`, `Card`, `Cash`).
+12. `Rating`: Customer satisfaction score (Float: 3.0 to 5.0).
+13. `Sales`: Total transaction monetary value.
+
+### 2.2 Data Cleaning & Integrity Audit Results
+- **Missing / Null Values**: **0 missing entries** across all 500 records ($100\%$ completeness).
+- **Duplicate Rows**: **0 duplicates** detected.
+- **Range & Validity Bounds**:
+  - `Quantity`: $\min = 1, \max = 10$ (All positive integers).
+  - `Unit Price`: $\min = ₹28.00, \max = ₹235.00$ (No zero or negative prices).
+  - `Rating`: $\min = 3.0, \max = 5.0$ (Strictly within valid limits).
+
+---
+
+## 3. FORMULA CALCULATION & VERIFICATION
+
+The financial core of the dataset was re-computed programmatically:
+
+$$\text{Calculated Sales} = \text{Quantity} \times \text{Unit Price}$$
+
+$$\Delta_{\text{Sales}} = |\text{Calculated Sales} - \text{Recorded Sales}|$$
+
+- **Discrepancy Threshold**: $\Delta_{\text{Sales}} > 0.05$
+- **Total Discrepancies Detected**: **0**
+- **Conclusion**: The financial calculation holds with $100.00\%$ mathematical precision across every record.
+
+---
+
+## 4. EXPLORATORY DATA ANALYSIS & GROUP SUMMARIES
+
+### 4.1 Product Category Performance
+| Category | Invoices (Count) | Units Sold | Total Revenue (₹) | Avg Ticket (₹) | Avg Rating | Revenue Share |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Beverages** | 82 | 465 | ₹56,108.24 | ₹684.25 | 3.96★ | **23.0%** |
+| **Personal Care** | 73 | 399 | ₹45,943.96 | ₹629.37 | 3.95★ | **18.8%** |
+| **Dairy** | 68 | 345 | ₹43,992.00 | ₹646.94 | 4.03★ | **18.0%** |
+| **Grocery** | 82 | 439 | ₹40,470.47 | ₹493.54 | 3.94★ | **16.6%** |
+| **Fruits** | 44 | 223 | ₹23,263.17 | ₹528.71 | 3.83★ | **9.5%** |
+| **Snacks** | 75 | 443 | ₹16,992.97 | ₹226.57 | 4.11★ | **7.0%** |
+| **Vegetables** | 48 | 290 | ₹11,124.17 | ₹231.75 | 3.99★ | **4.6%** |
+| **Bakery** | 28 | 164 | ₹6,516.10 | ₹232.72 | 4.24★ | **2.7%** |
+
+*Key Insight:* The top 3 categories (**Beverages**, **Personal Care**, **Dairy**) generate **₹146,044.20** (**59.8%** of chain revenue). In contrast, **Bakery** has the highest satisfaction rating (**4.24★**) despite representing only 2.7% of sales.
+
+---
+
+### 4.2 Regional & Branch Benchmarking
+| Branch | City | Invoices | Units Sold | Total Revenue (₹) | Avg Ticket (₹) | Avg Rating | Revenue Share |
+| :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Branch C** | Mumbai | 143 | 788 | ₹72,469.45 | ₹506.78 | 4.05★ | **29.6%** |
+| **Branch B** | Delhi | 133 | 741 | ₹64,116.26 | ₹482.08 | 3.98★ | **26.2%** |
+| **Branch D** | Bengaluru | 119 | 674 | ₹55,468.29 | ₹466.12 | 4.09★ | **22.7%** |
+| **Branch A** | Jaipur | 105 | 565 | ₹52,357.08 | ₹498.64 | 3.84★ | **21.4%** |
+
+*Key Insight:* **Mumbai (Branch C)** leads in total volume and revenue. **Bengaluru (Branch D)** has the highest customer rating (**4.09★**). **Jaipur (Branch A)** exhibits the lowest revenue (₹52.4K) and lowest customer rating (3.84★), indicating an operational optimization opportunity.
+
+---
+
+### 4.3 Customer Segmentation & Payment Analytics
+- **Membership Behavior**:
+  - **Members**: 296 transactions (59.2%) → **₹143,009.30** (58.5% revenue, Mean Basket: ₹483.14)
+  - **Normal**: 204 transactions (40.8%) → **₹101,401.78** (41.5% revenue, Mean Basket: ₹497.07)
+  - *Observation*: Non-members actually spend slightly *more* per visit (+₹13.93) than registered members, representing high-value conversion targets.
+- **Payment Method Preferences**:
+  - **UPI**: 127 orders → **₹67,910.33** (27.8%)
+  - **Net Banking**: 126 orders → **₹65,194.93** (26.7%)
+  - **Card**: 125 orders → **₹57,265.64** (23.4%)
+  - **Cash**: 122 orders → **₹54,040.18** (22.1%)
+  - *Observation*: Digital and cashless payment methods account for **77.9%** of total transaction volume.
+
+---
+
+## 5. DASHBOARD & VISUAL ANALYTICS ARCHITECTURE
+
+An interactive web-based dashboard was developed using Streamlit and Plotly under a **Neo-Brutalist IBM Blue & White** design language:
+1. **Overview Tab**: Real-time KPI indicator cards and macro sales distributions.
+2. **Data Quality Tab**: Live schema verification, duplicate checks, and missing value audit.
+3. **Category & Product Tab**: Formatted comparison table, vertical transaction bar chart, and horizontal rating bar chart.
+4. **City & Branch Tab**: Branch comparison ranking and regional satisfaction scores.
+5. **Customer Insights Tab**: Multi-level Sunburst chart (Customer Type $\times$ Gender) and payment breakdown donut chart.
+6. **Time Trends Tab**: Monthly sales trajectory and day-of-week shopping heat analysis.
+7. **Business Insights Tab**: Strategic recommendation cards and an interactive **What-If Revenue Simulator**.
+
+---
+
+## 6. STRATEGIC BUSINESS DECISIONS & ACTION PLAN
+
+### Recommendation 1: Cross-Selling & Impulse Basket Growth
+- **Empirical Finding**: Snacks has high transaction volume (75 invoices, 443 units) but low basket size (₹226.57). Beverages generates high average spend (₹684.25).
+- **Actionable Decision**: Implement combo-merchandising near beverage coolers. Offer bundle discounts (*"Buy Tea/Coffee + Get Biscuit/Chips at 15% off"*).
+
+### Recommendation 2: Regional Turnaround for Jaipur (Branch A)
+- **Empirical Finding**: Jaipur lags the chain in both revenue (₹52.4K vs Mumbai's ₹72.5K) and customer satisfaction (3.84★ vs 4.05★).
+- **Actionable Decision**: Reallocate inventory mix in Jaipur towards fast-moving Dairy and Beverage SKUs. Conduct store service training to lift satisfaction ratings.
+
+### Recommendation 3: High-Value Non-Member Conversion Campaign
+- **Empirical Finding**: Normal non-member customers spend ₹497.07 per visit (higher than Members' ₹483.14) but only account for 40.8% of visits.
+- **Actionable Decision**: Introduce instant cashier enrollment incentives. Offer a 5% welcome credit on their subsequent visit to lock in recurring loyalty.
+
+### Recommendation 4: Digital POS & Express Kiosks
+- **Empirical Finding**: Cashless channels (UPI, Net Banking, Cards) capture 77.9% of transactions.
+- **Actionable Decision**: Install dedicated quick-scan UPI QR checkout terminals to eliminate wait times during peak evening and weekend traffic hours.
+
+---
+
+## 7. CONCLUSION
+
+The supermarket sales dataset demonstrates strong retail fundamentals with solid digital payment adoption and healthy category drivers. By executing targeted product bundling, turning around regional bottlenecks in Jaipur, and converting high-spend normal shoppers into loyalty members, the chain can project an estimated **8% to 15% revenue growth**.
+
+---
+*Report prepared for IBM SkillsBuild Capstone Submission.*
